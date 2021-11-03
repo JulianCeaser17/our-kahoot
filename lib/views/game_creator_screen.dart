@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../game_provider.dart';
 import './question_creator_screen.dart';
@@ -16,11 +17,21 @@ class _GameCreatorScreenState extends State<GameCreatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.deepPurpleAccent,
       appBar: AppBar(
-        title: const Text('Games'),
+        title: const Text('Games',textAlign: TextAlign.center, style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.amberAccent,
+        ),),
+        backgroundColor: CupertinoColors.tertiaryLabel,
       ),
       body: Column(
-        children: [_buildListCreator(), Expanded(child: _buildGame())],
+
+        children: [_buildListCreator(), SizedBox(height: 40),
+
+           Expanded(child: _buildGame())],
+
       ),
     );
   }
@@ -29,12 +40,19 @@ class _GameCreatorScreenState extends State<GameCreatorScreen> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Material(
-        color: Theme.of(context).cardColor,
-        elevation: 10,
+        color: Colors.amberAccent,
+        elevation: 10, borderRadius: BorderRadius.circular(12),
         child: TextField(
           controller: textController,
           decoration: const InputDecoration(
-              labelText: 'Add a game', contentPadding: EdgeInsets.all(20)),
+            prefixIcon : Icon(
+              Icons.add_box_rounded,
+              color: Colors.black,
+              size: 30,),
+              labelText: 'Add a game', labelStyle: TextStyle(fontSize: 20,
+              fontWeight: FontWeight.bold,),  contentPadding: EdgeInsets.all(20),),
+
+
           onEditingComplete: addGame,
         ),
       ),
@@ -59,14 +77,23 @@ class _GameCreatorScreenState extends State<GameCreatorScreen> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
-            Icons.note,
-            size: 100,
-            color: Colors.grey,
-          ),
+      const Icon(
+      Icons.note,
+        size: 100,
+        color: Colors.black,
+      ),
+          //  Image(
+          //   image: AssetImage('assets/space-1.jpg'),
+          // ),
+
+
           Text(
             'You do not have any games yet.',
-            style: Theme.of(context).textTheme.headline5,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           )
         ],
       );
@@ -88,6 +115,7 @@ class _GameCreatorScreenState extends State<GameCreatorScreen> {
             child: ListTile(
               title: Text(game.name),
               subtitle: Text(game.numberOfTasksMessage()),
+
               onTap: () {
                 //Navigator.of(context).pushNamed(QuestionCreatorScreen.route, arguments: game);
                 // Navigator.of(context).push(MaterialPageRoute(
